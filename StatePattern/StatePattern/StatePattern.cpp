@@ -2,6 +2,7 @@
 #pragma once
 #include<iostream>
 
+//状态接口
 class IState {
 public:
 	virtual void insertQuarter() = 0;
@@ -9,6 +10,7 @@ public:
 	virtual void turnCrank() = 0;
 	virtual void dispense() = 0;
 };
+
 class GumballMachine;
 class NoQuarterState :public IState {
 private:
@@ -20,7 +22,7 @@ public:
 	void turnCrank();
 	void dispense();
 };
-
+//已售完状态
 class SoldOutState :public IState {
 private:
 	GumballMachine * gumballMachine;
@@ -31,7 +33,7 @@ public:
 	void turnCrank();
 	void dispense();
 };
-
+//已投币状态
 class HasQuarterState :public IState {
 private:
 	GumballMachine * gumballMachine;
@@ -44,7 +46,7 @@ public:
 	//这是此状态不恰当的动作
 	void dispense();
 };
-
+//售卖状态
 class SoldState :public IState {
 private:
 	GumballMachine * gumballMachine;
@@ -57,6 +59,63 @@ public:
 	//这是此状态不恰当的动作
 	void turnCrank();
 	void dispense();
+};
+
+class GumballMachine {
+private:
+	IState * soldOutState = new SoldOutState(this);
+	IState *noQuarterState = new NoQuarterState(this);
+	IState *hasQuarterState = new HasQuarterState(this);
+	IState *soldState = new SoldState(this);
+	IState *state;
+	int count = 0;
+public:
+	GumballMachine() {}
+	GumballMachine(int c) {
+		count = c;
+		if (count > 0) {
+			state = noQuarterState;
+		}
+	}
+	void insertQuarter() {
+		state->insertQuarter();
+	}
+	void ejectQuarter() {
+		state->ejectQuarter();
+	}
+	void turnCrank() {
+		state->turnCrank();
+		state->dispense();
+	}
+	void setState(IState *s) {
+		state = s;
+	}
+
+	IState* getSoldOutState() {
+		return soldOutState;
+	}
+
+	IState* getNoQuarterState() {
+		return noQuarterState;
+	}
+
+	IState* getHasQuarterState() {
+		return hasQuarterState;
+	}
+
+	IState* getSoldState() {
+		return soldState;
+	}
+
+	void releaseBall() {
+		std::cout << "a gumball comes rooling out the slot" << std::endl;
+		if (count > 0) {
+			count = count - 1;
+		}
+	}
+	int getBallCount() {
+		return count;
+	}
 };
 
 NoQuarterState::NoQuarterState(GumballMachine* gumball) {
@@ -140,62 +199,6 @@ void SoldState::dispense() {
 	}
 
 }
-class GumballMachine {
-private:
-	IState * soldOutState = new SoldOutState(this);
-	IState *noQuarterState = new NoQuarterState(this);
-	IState *hasQuarterState = new HasQuarterState(this);
-	IState *soldState = new SoldState(this);
-	IState *state;
-	int count = 0;
-public:
-	GumballMachine() {}
-	GumballMachine(int count) {
-		count = count;
-		if (count > 0) {
-			state = noQuarterState;
-		}
-	}
-	void insertQuarter() {
-		state->insertQuarter();
-	}
-	void ejectQuarter() {
-		state->ejectQuarter();
-	}
-	void turnCrank() {
-		state->turnCrank();
-		state->dispense();
-	}
-	void setState(IState *s) {
-		state = s;
-	}
-
-	IState* getSoldOutState() {
-		return soldOutState;
-	}
-
-	IState* getNoQuarterState() {
-		return noQuarterState;
-	}
-
-	IState* getHasQuarterState() {
-		return hasQuarterState;
-	}
-
-	IState* getSoldState() {
-		return soldState;
-	}
-
-	void releaseBall() {
-		std::cout << "a gumball comes rooling out the slot" << std::endl;
-		if (count > 0) {
-			count = count - 1;
-		}
-	}
-	int getBallCount() {
-		return count;
-	}
-};
 int main() {
 	//放入50颗糖果
 	GumballMachine* gumballMachine = new GumballMachine(50);
