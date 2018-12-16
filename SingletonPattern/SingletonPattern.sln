@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SingletonPattern", "SingletonPattern\SingletonPattern.vcxproj", "{AC17838E-4DAD-4DE6-8C52-FA83804AA37A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC17838E-4DAD-4DE6-8C52-FA83804AA37A}.Debug|x64.ActiveCfg = Debug|x64
+		{AC17838E-4DAD-4DE6-8C52-FA83804AA37A}.Debug|x64.Build.0 = Debug|x64
+		{AC17838E-4DAD-4DE6-8C52-FA83804AA37A}.Debug|x86.ActiveCfg = Debug|Win32
+		{AC17838E-4DAD-4DE6-8C52-FA83804AA37A}.Debug|x86.Build.0 = Debug|Win32
+		{AC17838E-4DAD-4DE6-8C52-FA83804AA37A}.Release|x64.ActiveCfg = Release|x64
+		{AC17838E-4DAD-4DE6-8C52-FA83804AA37A}.Release|x64.Build.0 = Release|x64
+		{AC17838E-4DAD-4DE6-8C52-FA83804AA37A}.Release|x86.ActiveCfg = Release|Win32
+		{AC17838E-4DAD-4DE6-8C52-FA83804AA37A}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7F5105C4-DA3F-4517-8750-6F5D3845E285}
+	EndGlobalSection
+EndGlobal

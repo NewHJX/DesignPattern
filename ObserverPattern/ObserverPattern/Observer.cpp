@@ -56,9 +56,31 @@ public:
 	}
 };
 
+class AnotherConditionsDisplay : public Observer, public DisplayElement {
+private:
+	float temperature;
+	float humidity;
+	Subject *weather_data;
+public:
+	AnotherConditionsDisplay(Subject *weatherdata) {
+		weather_data = weatherdata;
+		weather_data->registerObserver(this);
+	}
+	void update(float temp, float humi, float pres) {
+		temperature = temp;
+		humidity = humi;
+		display();
+	}
+	void display() {
+		cout << "another conditions:temperature:" << temperature << " humidity:" << humidity << endl;
+	}
+};
+
+
 int main() {
 	WeatherData *weatherdata = new WeatherData();
 	CurrentConditionsDisplay *currentcondition = new CurrentConditionsDisplay(weatherdata);
+	AnotherConditionsDisplay *anothercondition = new AnotherConditionsDisplay(weatherdata);
 	weatherdata->setMeasurements(80, 65, 30.4f);
 	weatherdata->setMeasurements(82, 70, 29.2f);
 	weatherdata->setMeasurements(78, 90, 29.2f);
